@@ -9,8 +9,8 @@ import 'package:fast_food/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   @override
@@ -21,18 +21,23 @@ class SignIn extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              paddingSymmetric(
-                vertical: 16,
-                horizontal: 94,
-                child: SizedBox(
-                  width: getW(187),
-                  child: textBold("Sign In", size: 16),
-                ),
+              Row(
+                children: [
+                  iconButton(const Icon(Icons.arrow_back_ios),
+                      () => Navigator.pop(context)),
+                  paddingOnly(
+                    left: 55,
+                    child: SizedBox(
+                      width: getW(187),
+                      child: textBold("Sign Up", size: 16),
+                    ),
+                  ),
+                ],
               ),
               paddingOnly(
                 top: 35,
                 left: 20,
-                child: textBold("Welcome to", size: 34),
+                child: textBold("Create Account", size: 34),
               ),
               paddingOnly(
                 top: 5,
@@ -40,13 +45,13 @@ class SignIn extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    textnormal("Enter your Phone number or Email"),
+                    textnormal("Enter your Name, Email and Password"),
                     Row(
                       children: [
                         textnormal("for sign in, Or  "),
                         textButton(
-                          "Create new accaunt",
-                          () => Navigator.pushNamed(context, '/signUp'),
+                          "Already have account?",
+                          () => Navigator.pop(context),
                         ),
                       ],
                     ),
@@ -60,7 +65,19 @@ class SignIn extends StatelessWidget {
                 child: TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
-                    hintText: "Email",
+                    hintText: "Full Name",
+                    border: OutlineInputBorder(borderRadius: radiusCircular(6)),
+                  ),
+                ),
+              ),
+              paddingOnly(
+                top: 14,
+                left: 20,
+                right: 20,
+                child: TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: "Email Address",
                     border: OutlineInputBorder(borderRadius: radiusCircular(6)),
                   ),
                 ),
@@ -92,14 +109,20 @@ class SignIn extends StatelessWidget {
               ),
               paddingOnly(
                 top: 20,
-                left: 138,
-                child: textButton("Forget passwod?", () {},
-                    color: const Color(0xFF010F07)),
+                left: 46,
+                child: SizedBox(
+                  width: 284,
+                  child: textButton(
+                      "By Signing up you agree to our Terms Conditions & Privacy Policy.",
+                      () {},
+                      color: const Color(0xFF868686)),
+                ),
               ),
               paddingOnly(
                 top: 20,
                 left: 20,
-                child: containerButton("Sign In", () => Navigator.pushNamed(context, '/home')),
+                child: containerButton(
+                    "Sign In", () => Navigator.pushNamed(context, '/home')),
               ),
               paddingOnly(
                 top: 24,
