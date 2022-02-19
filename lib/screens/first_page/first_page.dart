@@ -1,4 +1,5 @@
 import 'package:fast_food/constant/sizeConfig.dart';
+import 'package:fast_food/provider/firstpage_provider.dart';
 import 'package:fast_food/widgets/padding.dart';
 import 'package:fast_food/widgets/texts.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    FirstPageProvider(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -39,7 +41,7 @@ class FirstPage extends StatelessWidget {
                 size: 16,
                 color: const Color(0xFF868686),
               ),
-            )
+            ),
           ],
         ),
       ),
