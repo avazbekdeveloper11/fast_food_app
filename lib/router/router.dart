@@ -1,4 +1,4 @@
-import 'package:fast_food/screens/first_page.dart';
+import 'package:fast_food/screens/first_page/first_page.dart';
 import 'package:flutter/material.dart';
 
 class GenerateRoute {
