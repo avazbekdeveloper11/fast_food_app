@@ -24,3 +24,7 @@ Padding paddingSymmetric(
           horizontal: getW(horizontal), vertical: getH(vertical)),
       child: child,
     );
+Padding paddingAll({required child, double all = 0}) => Padding(
+      padding: EdgeInsets.all(all),
+      child: child,
+    );

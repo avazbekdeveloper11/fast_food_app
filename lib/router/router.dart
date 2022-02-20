@@ -17,7 +17,7 @@ class GenerateRoute {
       case '/signUp':
         return MaterialPageRoute(builder: (context) => SignUp());
       case '/home':
-        return MaterialPageRoute(builder: (context) => const LocatoinPage());
+        return MaterialPageRoute(builder: (context) =>  HomePage());
     }
   }
 }

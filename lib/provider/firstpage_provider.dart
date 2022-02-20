@@ -1,3 +1,4 @@
+import 'package:fast_food/screens/location/location%20_page.dart';
 import 'package:flutter/material.dart';
 
 class FirstPageProvider {

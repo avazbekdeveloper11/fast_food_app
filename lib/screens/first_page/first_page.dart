@@ -10,6 +10,7 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     FirstPageProvider(context);
     return Scaffold(
       body: SafeArea(

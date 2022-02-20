@@ -1,7 +1,10 @@
 import 'package:fast_food/router/router.dart';
+import 'package:fast_food/screens/location/location%20_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);

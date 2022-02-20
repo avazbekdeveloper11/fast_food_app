@@ -45,8 +45,8 @@ class SignIn extends StatelessWidget {
                       children: [
                         textnormal("for sign in, Or  "),
                         textButton(
-                          "Create new accaunt",
-                          () => Navigator.pushNamed(context, '/signUp'),
+                          text: "Create new accaunt",
+                          ontap: () => Navigator.pushNamed(context, '/signUp'),
                         ),
                       ],
                     ),
@@ -93,13 +93,16 @@ class SignIn extends StatelessWidget {
               paddingOnly(
                 top: 20,
                 left: 138,
-                child: textButton("Forget passwod?", () {},
+                child: textButton(
+                    text: "Forget passwod?",
+                    ontap: () {},
                     color: const Color(0xFF010F07)),
               ),
               paddingOnly(
                 top: 20,
                 left: 20,
-                child: containerButton("Sign In", () => Navigator.pushNamed(context, '/home')),
+                child: containerButton(
+                    "Sign In", () => Navigator.pushNamed(context, '/home')),
               ),
               paddingOnly(
                 top: 24,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fast_food/components/companents.dart';
 import 'package:fast_food/constant/sizeConfig.dart';
 import 'package:fast_food/widgets/padding.dart';
@@ -11,7 +9,7 @@ InkWell containerButton(text, ontap) {
     child: Container(
       height: getH(48),
       width: getW(335),
-      child: Center(child: textBold(text)),
+      child: Center(child: textBold(text,color: Colors.white)),
       decoration: BoxDecoration(
         color: const Color(0xFF22A45D),
         borderRadius: radiusCircular(8),

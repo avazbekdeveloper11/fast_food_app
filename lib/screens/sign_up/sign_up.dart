@@ -50,8 +50,8 @@ class SignUp extends StatelessWidget {
                       children: [
                         textnormal("for sign in, Or  "),
                         textButton(
-                          "Already have account?",
-                          () => Navigator.pop(context),
+                          text: "Already have account?",
+                          ontap: () => Navigator.pop(context),
                         ),
                       ],
                     ),
@@ -113,8 +113,9 @@ class SignUp extends StatelessWidget {
                 child: SizedBox(
                   width: 284,
                   child: textButton(
-                      "By Signing up you agree to our Terms Conditions & Privacy Policy.",
-                      () {},
+                      text:
+                          "By Signing up you agree to our Terms Conditions & Privacy Policy.",
+                      ontap: () {},
                       color: const Color(0xFF868686)),
                 ),
               ),
@@ -122,7 +123,7 @@ class SignUp extends StatelessWidget {
                 top: 20,
                 left: 20,
                 child: containerButton(
-                    "Sign In", () => Navigator.pushNamed(context, '/home')),
+                    "Sign Up", () => Navigator.pushNamed(context, '/home')),
               ),
               paddingOnly(
                 top: 24,
@@ -141,10 +142,11 @@ class SignUp extends StatelessWidget {
                   top: 16,
                   left: 20,
                   child: button_sign(
-                      color: const Color(0xFF4285F4),
-                      img: "assets/logo/with_facebook.png",
-                      logo: "assets/logo/facebook.png",
-                      ontap: () {}))
+                    color: const Color(0xFF4285F4),
+                    img: "assets/logo/with_facebook.png",
+                    logo: "assets/logo/facebook.png",
+                    ontap: () {},
+                  ))
             ],
           ),
         ),

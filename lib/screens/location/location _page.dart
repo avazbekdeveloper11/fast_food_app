@@ -1,22 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
+class LocatoinPage {
+  String location = 'Null, Press Button';
+  String adress = 'search';
 
-
-class LocatoinPage extends StatefulWidget {
-  const LocatoinPage({Key? key}) : super(key: key);
-
-  @override
-  _LocatoinPageState createState() => _LocatoinPageState();
-}
-
-class _LocatoinPageState extends State<LocatoinPage> {
-
-  String location ='Null, Press Button';
-  String Address = 'search';
-
-  Future<Position> _getGeoLocationPosition() async {
+  Future<Position> getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -39,40 +28,17 @@ class _LocatoinPageState extends State<LocatoinPage> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
-  Future<void> GetAddressFromLatLong(Position position)async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+  Future GetAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);
     Placemark place = placemarks[0];
-    Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    setState(()  {
-    });
+    return '${place.subLocality}, ${place.locality}';
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Coordinates Points',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
-            Text(location,style: TextStyle(color: Colors.black,fontSize: 16),),
-            SizedBox(height: 10,),
-            Text('ADDRESS',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
-            Text('${Address}'),
-            ElevatedButton(onPressed: () async{
-              Position position = await _getGeoLocationPosition();
-              location ='Lat: ${position.latitude} , Long: ${position.longitude}';
-              GetAddressFromLatLong(position);
-            }, child: Text('Get Location'))
-          ],
-        ),
-      ),
-    );
-  }
+
 }
