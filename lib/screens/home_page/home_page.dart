@@ -8,8 +8,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  TabController? _tabcontroller;
+
+  List<Widget> containers = List.generate(
+    5,
+    (index) => Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+            image: NetworkImage(
+                'https://avatars.mds.yandex.net/i?id=dfdb27ef931c8a244b692bc0478ae9f0-5220409-images-thumbs&n=13'),
+            fit: BoxFit.cover),
+        borderRadius: radiusCircular(8),
+        border: Border.all(
+          color: Colors.black,
+        ),
+      ),
+    ),
+  );
+  @override
+  void initState() {
+    super.initState();
+    _tabcontroller = TabController(length: 5, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +86,7 @@ class HomePage extends StatelessWidget {
                                                 .watch<LocationProvider>()
                                                 .adress ==
                                             "Reset"
-                                        ? Colors.red
+                                        ? Colors.transparent
                                         : Colors.black,
                                   ),
                                 ),
@@ -68,24 +98,26 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       const Divider(),
-                      SizedBox(
-                        height: getH(200),
-                        width: double.infinity,
-                        child: PageView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, __) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: radiusCircular(8),
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: getH(200),
+                            width: double.infinity,
+                            child: TabBarView(
+                              controller: _tabcontroller,
+                              children: containers,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: getH(20),
+                            right: getW(35),
+                            child: TabPageSelector(
+                              indicatorSize: getW(8),
+                              selectedColor: Colors.green,
+                              controller: _tabcontroller,
+                            ),
+                          ),
+                        ],
                       ),
                       text_button(ontap: () {}),
                       SizedBox(
@@ -191,35 +223,98 @@ class HomePage extends StatelessWidget {
             SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
-                mainAxisExtent: getH(290),
+                mainAxisExtent: getH(310),
               ),
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Container(
-                  height: getH(282),
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: radiusCircular(8),
-                    border: Border.all(
-                      color: Colors.black,
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 20,
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: getH(160),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: radiusCircular(8),
+                    decoration: BoxDecoration(
+                      borderRadius: radiusCircular(8),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: getH(160),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    'https://avatars.mds.yandex.net/i?id=dfdb27ef931c8a244b692bc0478ae9f0-5220409-images-thumbs&n=13'),
+                                fit: BoxFit.cover),
+                            borderRadius: radiusCircular(8),
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                );
-              }),
+                        paddingSymmetric(
+                            vertical: 5,
+                            child: textBold("McDonald’s", size: 20)),
+                        textnormal("Colarodo, San Francisco",
+                            color: const Color(0xFF868686)),
+                        paddingOnly(
+                          top: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              textBold("\$\$",
+                                  color: const Color.fromARGB(255, 99, 98, 98)),
+                              SvgPicture.asset('assets/logo/dot.svg'),
+                              textBold("Chinese",
+                                  color: const Color.fromARGB(255, 99, 98, 98)),
+                              SvgPicture.asset('assets/logo/dot.svg'),
+                              textBold("American",
+                                  color: const Color.fromARGB(255, 99, 98, 98)),
+                              SvgPicture.asset('assets/logo/dot.svg'),
+                              textBold("Deshi food",
+                                  color: const Color.fromARGB(255, 99, 98, 98)),
+                            ],
+                          ),
+                        ),
+                        paddingOnly(
+                          top: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              textBold("4.5"),
+                              Icon(Icons.star,
+                                  size: getW(15), color: Colors.green),
+                              Icon(
+                                Icons.history_toggle_off_rounded,
+                                size: getW(15),
+                              ),
+                              textBold(
+                                "25min",
+                                color: const Color.fromARGB(255, 99, 98, 98),
+                              ),
+                              textBold(
+                                '200+ Ratings',
+                                color: const Color.fromARGB(255, 99, 98, 98),
+                              ),
+                              SvgPicture.asset('assets/logo/dot.svg'),
+                              Icon(
+                                Icons.monetization_on,
+                                color: const Color(0xFF868686),
+                                size: getW(15),
+                              ),
+                              textBold(
+                                "Free",
+                                color: const Color.fromARGB(255, 99, 98, 98),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
             )
           ],
         ),
