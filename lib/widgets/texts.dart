@@ -1,10 +1,13 @@
 import 'package:fast_food/constant/sizeConfig.dart';
 import 'package:flutter/material.dart';
 
-Text textBold(text, {double size = 14, Color color = Colors.black}) {
+Text textBold(text,
+    {double size = 14,
+    Color color = Colors.black,
+    textalign = TextAlign.center}) {
   return Text(
     text,
-    textAlign: TextAlign.center,
+    textAlign: textalign,
     style: TextStyle(
         fontSize: getW(size), color: color, fontWeight: FontWeight.bold),
   );

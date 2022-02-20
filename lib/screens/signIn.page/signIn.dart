@@ -1,5 +1,6 @@
 import 'package:fast_food/components/companents.dart';
 import 'package:fast_food/constant/sizeConfig.dart';
+import 'package:fast_food/provider/locationProvider.dart';
 import 'package:fast_food/provider/show_password_provider.dart';
 import 'package:fast_food/widgets/container_button.dart';
 import 'package:fast_food/widgets/icon_button.dart';
@@ -13,8 +14,10 @@ class SignIn extends StatelessWidget {
   SignIn({Key? key}) : super(key: key);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

@@ -4,9 +4,12 @@ import 'package:geolocator/geolocator.dart';
 import '../screens/location/location _page.dart';
 
 class LocationProvider extends ChangeNotifier {
-  String adress = 'Reset location';
+  String adress = 'Reset';
+  LocationProvider() {
+    updateAdress();
+  }
 
-  void updateAdress() async {
+  Future<void> updateAdress() async {
     Position position = await LocatoinPage().getGeoLocationPosition();
     LocatoinPage().location =
         'Lat: ${position.latitude} , Long: ${position.longitude}';
