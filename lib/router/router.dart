@@ -3,6 +3,7 @@ import 'package:fast_food/screens/home_page/home_page.dart';
 import 'package:fast_food/screens/location/location%20_page.dart';
 import 'package:fast_food/screens/signIn.page/signIn.dart';
 import 'package:fast_food/screens/sign_up/sign_up.dart';
+import 'package:fast_food/screens/single_page/single_page.dart';
 import 'package:flutter/material.dart';
 
 class GenerateRoute {
@@ -17,7 +18,9 @@ class GenerateRoute {
       case '/signUp':
         return MaterialPageRoute(builder: (context) => SignUp());
       case '/home':
-        return MaterialPageRoute(builder: (context) =>  HomePage());
+        return MaterialPageRoute(builder: (context) => HomePage());
+      case '/singlePage':
+        return MaterialPageRoute(builder: (context) => const SinglePage());
     }
   }
 }

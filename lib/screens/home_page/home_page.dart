@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../constant/constant.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -19,22 +21,6 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController? _tabcontroller;
 
-  List<Widget> containers = List.generate(
-    5,
-    (index) => Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        image: const DecorationImage(
-            image: NetworkImage(
-                'https://avatars.mds.yandex.net/i?id=dfdb27ef931c8a244b692bc0478ae9f0-5220409-images-thumbs&n=13'),
-            fit: BoxFit.cover),
-        borderRadius: radiusCircular(8),
-        border: Border.all(
-          color: Colors.black,
-        ),
-      ),
-    ),
-  );
   @override
   void initState() {
     super.initState();
@@ -82,12 +68,7 @@ class _HomePageState extends State<HomePage>
                                     ontap: () => context
                                         .read<LocationProvider>()
                                         .updateAdress(),
-                                    color: context
-                                                .watch<LocationProvider>()
-                                                .adress ==
-                                            "Reset"
-                                        ? Colors.transparent
-                                        : Colors.black,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -113,94 +94,14 @@ class _HomePageState extends State<HomePage>
                             right: getW(35),
                             child: TabPageSelector(
                               indicatorSize: getW(8),
-                              selectedColor: Colors.green,
+                              selectedColor: Colors.white,
                               controller: _tabcontroller,
                             ),
                           ),
                         ],
                       ),
                       text_button(ontap: () {}),
-                      SizedBox(
-                        height: getH(280),
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, __) {
-                            return Row(
-                              children: [
-                                const SizedBox(width: 15),
-                                Container(
-                                  width: getW(200),
-                                  height: getH(254),
-                                  margin: const EdgeInsets.only(
-                                      top: 10, bottom: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: radiusCircular(8),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: getH(160),
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          image: const DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://avatars.mds.yandex.net/i?id=dfdb27ef931c8a244b692bc0478ae9f0-5220409-images-thumbs&n=13'),
-                                              fit: BoxFit.cover),
-                                          borderRadius: radiusCircular(15),
-                                        ),
-                                      ),
-                                      paddingSymmetric(
-                                          vertical: 5,
-                                          child:
-                                              textBold("McDonald’s", size: 20)),
-                                      textnormal("Colarodo, San Francisco",
-                                          color: const Color(0xFF868686)),
-                                      paddingOnly(
-                                        top: 17,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: getW(36),
-                                              height: getH(20),
-                                              child: Center(
-                                                child: textBold("4.5"),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius:
-                                                      radiusCircular(6)),
-                                            ),
-                                            textBold(
-                                              "25min",
-                                              color: const Color.fromARGB(
-                                                  255, 99, 98, 98),
-                                            ),
-                                            SvgPicture.asset(
-                                                'assets/logo/dot.svg'),
-                                            textBold(
-                                              "Free delivery",
-                                              color: const Color.fromARGB(
-                                                  255, 99, 98, 98),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                              ],
-                            );
-                          },
-                          itemCount: 5,
-                        ),
-                      ),
+                      cakes(),
                       paddingOnly(
                         top: 30,
                         bottom: 30,
@@ -214,7 +115,10 @@ class _HomePageState extends State<HomePage>
                         ),
                       ),
                       text_button(
-                          text: "Best Picks Restaurants by team", ontap: () {})
+                        text: "Best Picks Restaurants by team",
+                      ),
+                      cakes(),
+                      text_button(text: "All Restaurants"),
                     ],
                   ),
                 ],
@@ -225,19 +129,17 @@ class _HomePageState extends State<HomePage>
                 crossAxisCount: 1,
                 mainAxisExtent: getH(310),
               ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Container(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/singlePage");
+                  },
+                  child: Container(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 20,
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: radiusCircular(8),
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                    ),
+                    decoration: BoxDecoration(borderRadius: radiusCircular(8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -312,12 +214,95 @@ class _HomePageState extends State<HomePage>
                         )
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              }, childCount: 2),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  SizedBox cakes() {
+    return SizedBox(
+      height: getH(280),
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, __) {
+          return Row(
+            children: [
+              const SizedBox(width: 15),
+              Container(
+                width: getW(200),
+                height: getH(254),
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
+                decoration: BoxDecoration(
+                  borderRadius: radiusCircular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      child: Container(
+                        width: double.infinity,
+                        height: getH(160),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          image: const DecorationImage(
+                              image: NetworkImage(
+                                  'https://avatars.mds.yandex.net/i?id=dfdb27ef931c8a244b692bc0478ae9f0-5220409-images-thumbs&n=13'),
+                              fit: BoxFit.cover),
+                          borderRadius: radiusCircular(15),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/singlePage");
+                      },
+                    ),
+                    paddingSymmetric(
+                        vertical: 5, child: textBold("McDonald’s", size: 20)),
+                    textnormal("Colarodo, San Francisco",
+                        color: const Color(0xFF868686)),
+                    paddingOnly(
+                      top: 17,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: getW(36),
+                            height: getH(20),
+                            child: Center(
+                              child: textBold(
+                                "4.5",
+                                color: const Color.fromARGB(255, 99, 98, 98),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: radiusCircular(6)),
+                          ),
+                          textBold(
+                            "25min",
+                            color: const Color.fromARGB(255, 99, 98, 98),
+                          ),
+                          SvgPicture.asset('assets/logo/dot.svg'),
+                          textBold(
+                            "Free delivery",
+                            color: const Color.fromARGB(255, 99, 98, 98),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          );
+        },
+        itemCount: 5,
       ),
     );
   }
